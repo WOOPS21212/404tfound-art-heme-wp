@@ -154,6 +154,14 @@ function portfolio_theme_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	wp_enqueue_script(
+		'portfolio-main', 
+		get_template_directory_uri() . '/js/main.js',
+		array(), // No dependencies
+		filemtime(get_template_directory() . '/js/main.js'), // Version based on file modification time
+		true // Load in footer
+	);
 }
 add_action( 'wp_enqueue_scripts', 'portfolio_theme_scripts' );
 
