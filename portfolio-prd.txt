@@ -1,0 +1,70 @@
+# 404Found Portfolio Website - Product Requirements Document
+
+## Project Overview
+Custom WordPress portfolio website for showcasing creative projects with a dark, modern aesthetic and smooth user experience.
+
+## Core Requirements
+
+### 1. Technical Stack
+- WordPress 6.8.1 with custom theme
+- ACF Pro for custom fields
+- SCSS compiled via Gulp
+- BrowserSync for development
+- LocalWP for local development
+
+### 2. Content Management
+- Custom post type: "projects"
+- Hierarchical taxonomies for categorization
+- Advanced custom fields for rich content
+- Downloadable resources system
+
+### 3. Frontend Features
+- Masonry grid homepage with filtering
+- Before/after comparison sliders
+- Embedded Vimeo videos for tutorials
+- Process breakdown sections
+- Behind-the-scenes content areas
+- Technical breakdown sections
+- Related projects display
+
+### 4. User Experience
+- Dark theme with consistent styling
+- Responsive design (mobile-first)
+- Lazy loading for performance
+- Smooth transitions and interactions
+- Accessibility compliance
+- Minimal, clean interface
+
+### 5. Admin Features
+- Bulk import/export capabilities
+- Template system for projects
+- Enhanced preview modes
+- Version control for updates
+- Media organization by project
+
+### 6. Performance & Analytics
+- Google Analytics integration
+- SEO optimization
+- Image optimization
+- Caching implementation
+- Download tracking
+
+## Success Criteria
+- Fast loading times (<3 seconds)
+- Mobile-responsive design
+- Easy content management
+- Professional presentation
+- Educational value through tutorials
+
+## Development Phases
+1. Foundation Setup (Environment, Theme, CPT)
+2. Content Structure (ACF, Templates, Styling)
+3. Advanced Features (Filtering, Interactions)
+4. Performance & Launch (Optimization, Analytics)
+
+## Technical Constraints
+- Must work with WordPress 6.8.1+
+- Compatible with modern browsers
+- Mobile-first responsive design
+- Dark theme only
+- Performance-focused architecture

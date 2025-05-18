@@ -1,0 +1,182 @@
+{
+  "key": "group_advanced_project_content",
+  "title": "Advanced Project Content",
+  "fields": [
+    {
+      "key": "field_vimeo_url",
+      "label": "Vimeo Video URL",
+      "name": "vimeo_url",
+      "type": "url",
+      "instructions": "Paste the full Vimeo video link. This will be embedded with a custom player.",
+      "required": 0
+    },
+    {
+      "key": "field_process_sections",
+      "label": "Process Sections",
+      "name": "process_sections",
+      "type": "flexible_content",
+      "button_label": "Add Section",
+      "layouts": [
+        {
+          "key": "layout_pre_production_notes",
+          "name": "pre_production_notes",
+          "label": "Pre-production Notes",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_pre_production_notes_wysiwyg",
+              "label": "Notes",
+              "name": "notes",
+              "type": "wysiwyg"
+            }
+          ]
+        },
+        {
+          "key": "layout_production_techniques",
+          "name": "production_techniques",
+          "label": "Production Techniques",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_production_techniques_wysiwyg",
+              "label": "Techniques",
+              "name": "techniques",
+              "type": "wysiwyg"
+            }
+          ]
+        },
+        {
+          "key": "layout_post_production_breakdown",
+          "name": "post_production_breakdown",
+          "label": "Post-production Breakdown",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_post_production_breakdown_wysiwyg",
+              "label": "Breakdown",
+              "name": "breakdown",
+              "type": "wysiwyg"
+            }
+          ]
+        },
+        {
+          "key": "layout_tutorial_code_block",
+          "name": "tutorial_code_block",
+          "label": "Tutorial Code Block",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_tutorial_code",
+              "label": "Code",
+              "name": "code",
+              "type": "textarea"
+            },
+            {
+              "key": "field_tutorial_language",
+              "label": "Language",
+              "name": "language",
+              "type": "select",
+              "choices": {
+                "HTML": "HTML",
+                "CSS": "CSS",
+                "JS": "JS",
+                "Python": "Python",
+                "Bash": "Bash",
+                "Other": "Other"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "field_bts_content",
+      "label": "Behind the Scenes",
+      "name": "bts_content",
+      "type": "group",
+      "sub_fields": [
+        {
+          "key": "field_enable_bts",
+          "label": "Enable Behind the Scenes",
+          "name": "enable_bts",
+          "type": "true_false"
+        },
+        {
+          "key": "field_bts_media",
+          "label": "BTS Media",
+          "name": "bts_media",
+          "type": "gallery"
+        }
+      ]
+    },
+    {
+      "key": "field_tech_breakdown",
+      "label": "Technical Breakdown",
+      "name": "tech_breakdown",
+      "type": "group",
+      "sub_fields": [
+        {
+          "key": "field_enable_tech",
+          "label": "Enable Technical Breakdown",
+          "name": "enable_tech",
+          "type": "true_false"
+        },
+        {
+          "key": "field_making_of",
+          "label": "Making Of",
+          "name": "making_of",
+          "type": "wysiwyg"
+        }
+      ]
+    },
+    {
+      "key": "field_downloads",
+      "label": "Downloadable Resources",
+      "name": "downloads",
+      "type": "repeater",
+      "sub_fields": [
+        {
+          "key": "field_download_file",
+          "label": "File",
+          "name": "file",
+          "type": "file"
+        },
+        {
+          "key": "field_download_label",
+          "label": "Label",
+          "name": "label",
+          "type": "text"
+        },
+        {
+          "key": "field_download_file_type",
+          "label": "File Type",
+          "name": "file_type",
+          "type": "select",
+          "choices": {
+            "ZIP": "ZIP",
+            "HIP": "HIP",
+            "MP4": "MP4",
+            "Other": "Other"
+          }
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "projects"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": ""
+} 
