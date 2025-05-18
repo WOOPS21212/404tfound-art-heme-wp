@@ -1,3 +1,7 @@
+# 404Found Art Portfolio Theme
+
+**This theme uses [_s (Underscores)](https://underscores.me/) as a base.** Thanks to the Underscores team for their excellent starter theme.
+
 [![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)
 
 _s
