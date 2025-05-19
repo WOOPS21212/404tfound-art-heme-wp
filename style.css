@@ -130,21 +130,12 @@ a:hover, a:focus {
 
 /* MASONRY GRID */
 .masonry-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-3);
+  position: relative;
+  width: 100%;
+  /* Remove display: grid and grid-template-columns for Macy.js */
+  /* gap: var(--spacing-3); */
 }
 
-@media (min-width: 768px) {
-  .masonry-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (min-width: 1024px) {
-  .masonry-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
 /* PROJECT CARD - Base styling only */
 /* Note: Detailed project card styling has been moved to components/_project-card.scss */
 /* BUTTONS */
@@ -325,8 +316,16 @@ hr, .divider {
   background: var(--color-accent-orange);
 }
 
-/* Main projects grid - core styling */
-/* Note: Additional grid styles are in components/_project-card.scss */
+/* Projects Grid - Macy.js Layout */
+.projects-grid {
+  position: relative; /* Required for Macy.js positioning */
+  width: 100%;
+  padding: 2rem;
+  min-height: 400px;
+  margin: 0 auto; /* Center the grid container */
+  /* Remove display: grid and grid-template-columns for Macy.js */
+}
+
 /* Project card detailed styling moved to components/_project-card.scss */
 /* This prevents conflicts and ensures consistent styling */
 .project-filters {

@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Macy.js for masonry layout
   const macyInstance = Macy({
     container: '.projects-grid',
-    trueOrder: false,
+    trueOrder: true, // Changed to true to prevent overlapping
     waitForImages: true,
-    margin: 32, // Matches the gap: 2rem from CSS
+    margin: {
+      x: 32, // Horizontal margin between items
+      y: 32  // Vertical margin to prevent overlapping
+    },
     columns: 3,
     breakAt: {
       1200: 3,
@@ -15,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
       520: 1
     }
   });
+
+  // Make instance available globally for other scripts
+  window.macyInstance = macyInstance;
 
   // Handle videos
   const initializeVideos = () => {

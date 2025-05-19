@@ -42,55 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Trigger masonry reflow after animations
-    setTimeout(updateMasonryLayout, 300);
+    // Trigger Macy.js recalculation after filter change
+    // This will properly handle the layout after filtering
+    if (window.macyInstance) {
+      setTimeout(() => window.macyInstance.recalculate(true), 300);
+    }
   }
 
-  // Masonry layout using ResizeObserver
-  function updateMasonryLayout() {
-    const grid = projectsGrid;
-    const items = [...grid.children].filter(
-      child => !child.classList.contains('is-hidden')
-    );
-    
-    if (items.length === 0) return; // Exit if no items are visible
-    
-    // Get the computed grid gap
-    const gridGap = parseInt(
-      getComputedStyle(grid).getPropertyValue('grid-gap') || 
-      getComputedStyle(grid).getPropertyValue('gap')
-    );
-
-    // Calculate and set the grid auto-rows
-    const rowHeight = parseInt(getComputedStyle(items[0]).getPropertyValue('grid-auto-rows'));
-    
-    items.forEach(item => {
-      // Get the entire card height, including both media and content
-      const media = item.querySelector('.project-card__media');
-      const content = item.querySelector('.project-card__content');
-      
-      let totalHeight = item.getBoundingClientRect().height;
-      
-      // Calculate appropriate rowspan based on the total height
-      const rowSpan = Math.ceil(
-        (totalHeight + gridGap) / (rowHeight + gridGap)
-      );
-      
-      item.style.gridRowEnd = `span ${rowSpan}`;
-    });
-  }
-
-  // Initialize ResizeObserver for responsive masonry
-  const resizeObserver = new ResizeObserver(entries => {
-    requestAnimationFrame(updateMasonryLayout);
-  });
-  resizeObserver.observe(projectsGrid);
+  // NOTE: Removed the conflicting updateMasonryLayout function
+  // Macy.js is handling the masonry layout already
   
+  // Remove ResizeObserver that was controlling grid layout
+  // Macy.js has its own resize handling
+
   // Listen for video loaded event from video-autoplay.js
   document.addEventListener('videoLoaded', (event) => {
-    // Recalculate the masonry layout when a video has loaded
-    // This ensures the grid properly respects the natural aspect ratio of videos
-    requestAnimationFrame(updateMasonryLayout);
+    // Recalculate the Macy.js layout when a video has loaded
+    if (window.macyInstance) {
+      window.macyInstance.recalculate(true);
+    }
   });
 
   // Event Listeners
@@ -115,8 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Reset filter state
     Object.keys(filterState).forEach(key => filterState[key] = []);
     
-    // Update layout
-    updateMasonryLayout();
+    // Update Macy.js layout
+    if (window.macyInstance) {
+      window.macyInstance.recalculate(true);
+    }
   });
 
   // Keyboard accessibility for filter options
@@ -130,9 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
-  // Initial layout
-  updateMasonryLayout();
 
   // Debug project card data attributes
   document.querySelectorAll('.project-card').forEach(card => {

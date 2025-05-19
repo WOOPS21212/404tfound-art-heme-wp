@@ -1,11 +1,11 @@
 .project-card {
   position: relative;
-  width: 100%;
+  max-width: 100%; // Allow natural sizing for Macy.js
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   overflow: hidden; // Ensure content doesn't overflow rounded corners
   background: var(--color-dark-grey);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin-bottom: 32px; // Add space between cards for Macy.js layout
+  // No margin-bottom for Macy.js - it handles spacing
   
   &:hover {
     transform: translateY(-4px);
@@ -137,6 +137,11 @@
 [data-macy-complete="1"] .project-card {
   opacity: 1;
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+// Hide filtered cards properly for Macy.js
+.project-card.is-hidden {
+  display: none;
 }
 
 // Dark mode adjustments
