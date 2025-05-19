@@ -3,12 +3,33 @@
     "title": "Project",
     "fields": [
         {
-            "key": "field_682a34457bccc",
-            "label": "Project Content Fields",
-            "name": "project_content_fields",
+            "key": "field_682a5f5104703",
+            "label": "Grid Media",
+            "name": "grid_media",
             "aria-label": "",
-            "type": "text",
-            "instructions": "",
+            "type": "file",
+            "instructions": "upload a video (mp4\/webm) or animated gif",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4, webm, gif",
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_682a386a7bcd0",
+            "label": "Description",
+            "name": "project_desc",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "“Write a detailed description. You can add inline images and links.”",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -17,11 +38,11 @@
                 "id": ""
             },
             "default_value": "",
-            "maxlength": "",
             "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         },
         {
             "key": "field_682a34937bccd",
@@ -96,7 +117,7 @@
             "label": "Collaboration Type",
             "name": "collaboration_type",
             "aria-label": "",
-            "type": "select",
+            "type": "checkbox",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -116,22 +137,20 @@
             },
             "default_value": [],
             "return_format": "value",
-            "multiple": 1,
-            "allow_null": 1,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ajax": 0,
-            "placeholder": "",
-            "create_options": 0,
-            "save_options": 0
+            "allow_custom": 0,
+            "allow_in_bindings": 1,
+            "layout": "vertical",
+            "toggle": 0,
+            "save_custom": 0,
+            "custom_choice_button_text": "Add new choice"
         },
         {
-            "key": "field_682a386a7bcd0",
-            "label": "Description",
-            "name": "project_desc",
+            "key": "field_682aaa7d82926",
+            "label": "CLOSE US",
+            "name": "",
             "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "“Write a detailed description. You can add inline images and links.”",
+            "type": "accordion",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -139,20 +158,17 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "allow_in_bindings": 0,
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "delay": 0
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
         },
         {
-            "key": "field_682a38c77bcd1",
-            "label": "Image Gallery",
-            "name": "project_gallery",
+            "key": "field_682aa8b331b4d",
+            "label": "Gallery and Links",
+            "name": "",
             "aria-label": "",
-            "type": "gallery",
-            "instructions": "“Add a collection of images. If empty, the featured image will be used.”",
+            "type": "accordion",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -160,19 +176,9 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "array",
-            "library": "all",
-            "min": "",
-            "max": "",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "insert": "append",
-            "preview_size": "medium"
+            "open": 0,
+            "multi_expand": 1,
+            "endpoint": 0
         },
         {
             "key": "field_682a390a7bcd2",
@@ -238,6 +244,55 @@
                     "parent_repeater": "field_682a390a7bcd2"
                 }
             ]
+        },
+        {
+            "key": "field_682a38c77bcd1",
+            "label": "Image Gallery",
+            "name": "project_gallery",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "“Add a collection of images. If empty, the featured image will be used.”",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min": "",
+            "max": "",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "insert": "append",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_682a34457bccc",
+            "label": "Project Content Fields",
+            "name": "project_content_fields",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -258,5 +313,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1747598028
+    "modified": 1747627380
 }

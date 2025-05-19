@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!grid) return;
 
   // Configuration
-  const GRID_ROW_HEIGHT = 50; // Updated to match new CSS grid-auto-rows
+  const GRID_ROW_HEIGHT = 50; // Base height in pixels
   const GRID_GAP = 32; // Matches gap: 2rem from CSS
-  const MIN_ROW_SPAN = 5; // Reduced since base row height is larger
+  const MIN_ROW_SPAN = 5; // Minimum rows
+  const DEFAULT_ROW_SPAN = 10; // Fallback if calculation fails
   
   const logDimensions = (element, prefix = '') => {
     console.group(`${prefix} Dimensions Debug:`);
@@ -25,21 +26,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const calculateRowSpan = (height) => {
     console.group('Row Span Calculation');
     
+    // Validate inputs
+    if (typeof height !== 'number' || isNaN(height)) {
+      console.warn('Invalid height provided:', height);
+      console.groupEnd();
+      return DEFAULT_ROW_SPAN;
+    }
+    
     // Account for grid gap in the calculation
     const totalHeight = height + GRID_GAP;
     const rowHeightWithGap = GRID_ROW_HEIGHT + GRID_GAP;
     
-    // Calculate and enforce minimum span
-    const rowSpan = Math.max(
-      Math.ceil(totalHeight / rowHeightWithGap),
-      MIN_ROW_SPAN
-    );
-
-    console.log({
+    // Debug values
+    console.log('Debug values:', {
       height,
       totalHeight,
+      GRID_GAP,
+      GRID_ROW_HEIGHT,
       rowHeightWithGap,
-      calculatedSpan: Math.ceil(totalHeight / rowHeightWithGap),
+      calculation: `${totalHeight} / ${rowHeightWithGap}`
+    });
+    
+    // Calculate with NaN protection
+    const calculatedSpan = Math.ceil(totalHeight / rowHeightWithGap);
+    const rowSpan = isNaN(calculatedSpan) ? DEFAULT_ROW_SPAN : Math.max(calculatedSpan, MIN_ROW_SPAN);
+    
+    console.log('Final calculation:', {
+      calculatedSpan,
+      isNaN: isNaN(calculatedSpan),
       finalRowSpan: rowSpan
     });
     
@@ -183,18 +197,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add missing updateItemLayout function
   const updateItemLayout = (item, media) => {
-    if (!item || !media) return;
+    if (!item || !media) {
+      console.warn('Missing item or media in updateItemLayout');
+      return;
+    }
     
     const width = item.offsetWidth;
-    const aspectRatio = media instanceof HTMLVideoElement 
-      ? media.videoWidth / media.videoHeight
-      : media.naturalWidth / media.naturalHeight;
+    let aspectRatio;
+    
+    // Safely calculate aspect ratio
+    if (media instanceof HTMLVideoElement) {
+      aspectRatio = media.videoWidth && media.videoHeight 
+        ? media.videoWidth / media.videoHeight 
+        : 16/9; // Default to 16:9 if dimensions unavailable
+    } else {
+      aspectRatio = media.naturalWidth && media.naturalHeight
+        ? media.naturalWidth / media.naturalHeight
+        : 16/9;
+    }
+    
+    // Debug media dimensions
+    console.log('Media dimensions:', {
+      element: media,
+      width,
+      aspectRatio,
+      videoWidth: media instanceof HTMLVideoElement ? media.videoWidth : 'n/a',
+      videoHeight: media instanceof HTMLVideoElement ? media.videoHeight : 'n/a',
+      naturalWidth: media instanceof HTMLImageElement ? media.naturalWidth : 'n/a',
+      naturalHeight: media instanceof HTMLImageElement ? media.naturalHeight : 'n/a'
+    });
     
     const height = width / aspectRatio;
     const rowSpan = calculateRowSpan(height);
     
-    item.style.gridRowEnd = `span ${rowSpan}`;
-    console.log('Updated layout:', { width, height, aspectRatio, rowSpan });
+    // Apply the span with validation
+    if (!isNaN(rowSpan) && rowSpan > 0) {
+      item.style.gridRowEnd = `span ${rowSpan}`;
+      console.log(`Applied grid-row-end: span ${rowSpan} to`, item);
+    } else {
+      item.style.gridRowEnd = `span ${DEFAULT_ROW_SPAN}`;
+      console.warn(`Applied fallback span ${DEFAULT_ROW_SPAN} due to invalid calculation`);
+    }
   };
 
   // Initialize

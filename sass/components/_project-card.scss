@@ -1,0 +1,123 @@
+.project-card {
+  position: relative;
+  width: 100%;
+  
+  &__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__media-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-background-dark, #1a1a1a);
+    
+    // Let masonry JS handle sizing
+  }
+
+  &__media {
+    display: block;
+    width: 100%;
+    height: auto; // Allow natural height
+    object-fit: cover;
+    
+    &--video {
+      width: 100%;
+      // Let video size naturally
+      object-fit: contain;
+    }
+    
+    &--image,
+    &--gif {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__title {
+    margin-top: 0.5rem;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+  }
+
+  // Debug outlines
+  &::after {
+    content: attr(style); // Show computed grid-row-end
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0,0,0,0.8);
+    color: lime;
+    font-size: 10px;
+    padding: 2px 4px;
+    z-index: 10;
+    pointer-events: none;
+  }
+}
+
+// Grid container using CSS Grid for masonry
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  
+  min-height: 400px;
+}
+
+// Loading state
+.projects-grid:empty::after {
+  content: "Loading projects...";
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text-muted);
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+// Dark mode adjustments
+@media (prefers-color-scheme: dark) {
+  .project-card {
+    &__media-wrapper {
+      background-color: var(--color-background-darker, #000);
+    }
+  }
+}
+
+// Debug styles
+.projects-grid.debug-layout {
+  .project-card {
+    &__media-wrapper {
+      outline: 2px solid rgba(255,0,0,0.5);
+      
+      &::after {
+        content: attr(style);
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: rgba(0,0,0,0.8);
+        color: lime;
+        font-size: 10px;
+        padding: 2px 4px;
+        z-index: 10;
+      }
+    }
+    
+    &__media {
+      outline: 2px solid rgba(0,255,0,0.5);
+      
+      &--video {
+        outline: 2px solid rgba(0,0,255,0.5);
+      }
+    }
+  }
+} 

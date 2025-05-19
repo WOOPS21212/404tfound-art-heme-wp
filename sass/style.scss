@@ -293,7 +293,6 @@ hr, .divider {
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-auto-rows: 20px; // Base row height
   grid-gap: 2rem;
   padding: 2rem;
 }
@@ -323,8 +322,7 @@ hr, .divider {
   // Generic media styles (applies to all media types)
   &__media {
     width: 100%;
-    height: auto !important; // Force natural height
-    min-height: 200px; // Set a minimum height to prevent tiny videos
+    height: auto !important;
     display: block;
     
     // Video-specific styles
@@ -401,4 +399,25 @@ hr, .divider {
       outline-offset: 2px;
     }
   }
+}
+
+/* ACF Accordion Styling */
+.acf-field-accordion .acf-accordion-title {
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  color: var(--color-white) !important;
+  padding: 16px 20px !important;
+  background: var(--color-medium-grey) !important;
+  border-radius: 6px !important;
+  margin-bottom: 8px !important;
+}
+
+.acf-field-accordion .acf-accordion-title:hover {
+  background: var(--color-accent-orange) !important;
+  color: var(--color-white) !important;
+}
+
+/* Make the accordion icon larger too */
+.acf-field-accordion .acf-accordion-title .acf-accordion-icon {
+  font-size: 1.2rem !important;
 }
