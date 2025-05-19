@@ -91,11 +91,58 @@ get_header();
       'posts_per_page' => -1,
       'post_status'    => 'publish',
     ]);
+
     if ($projects_query->have_posts()):
       while ($projects_query->have_posts()): $projects_query->the_post();
         $post_id = get_the_ID();
+        
+        // Build data attributes for filtering
+        $role_slugs = [];
+        $industry_slugs = [];
+        $year = get_field('year');
+        
+        // Get roles from ACF first, then fallback to taxonomy
+        $collaboration_type = get_field('collaboration_type');
+        $roles = get_the_terms($post_id, 'role');
+        
+        // Build role slugs array
+        if ($collaboration_type && is_array($collaboration_type)) {
+            $role_slugs = array_map('sanitize_title', $collaboration_type);
+        } elseif ($roles && !is_wp_error($roles) && is_array($roles)) {
+            foreach ($roles as $role) {
+                if (isset($role->slug)) {
+                    $role_slugs[] = $role->slug;
+                }
+            }
+        }
+        
+        // Get industries
+        $industries = get_the_terms($post_id, 'industry');
+        if ($industries && !is_wp_error($industries) && is_array($industries)) {
+            foreach ($industries as $industry) {
+                if (isset($industry->slug)) {
+                    $industry_slugs[] = $industry->slug;
+                }
+            }
+        }
         ?>
-        <article class="project-card" itemscope itemtype="http://schema.org/CreativeWork">
+        
+        <article class="project-card" 
+            itemscope 
+            itemtype="http://schema.org/CreativeWork"
+            <?php
+            // Output data attributes with proper escaping
+            if (!empty($role_slugs)) {
+                echo ' data-roles="' . esc_attr(implode(' ', $role_slugs)) . '"';
+            }
+            if (!empty($industry_slugs)) {
+                echo ' data-industries="' . esc_attr(implode(' ', $industry_slugs)) . '"';
+            }
+            if ($year) {
+                echo ' data-year="' . esc_attr($year) . '"';
+            }
+            ?>
+        >
           <a class="project-card__link" href="<?php the_permalink(); ?>" itemprop="url">
             <div class="project-card__media-wrapper">
               <?php
@@ -142,9 +189,58 @@ get_header();
               }
               ?>
             </div>
-            <h2 class="project-card__title" itemprop="name"><?php the_title(); ?></h2>
-            <!-- Future: video preview, filters, lazy loading, badges, etc. -->
+            <h2 class="project-card__title" itemprop="name"><?php echo esc_html(get_the_title()); ?></h2>
           </a>
+          
+          <div class="project-card__meta">
+            <?php
+            // Technologies Used (ACF Checkbox)
+            $technologies = get_field('project_tech');
+            if ($technologies && is_array($technologies)): ?>
+                <div class="project-card__technologies">
+                    <?php 
+                    foreach (array_slice($technologies, 0, 3) as $tech): ?>
+                        <span class="tech-badge">#<?php echo esc_html($tech); ?></span>
+                    <?php endforeach; 
+                    
+                    if (count($technologies) > 3): ?>
+                        <span class="tech-badge tech-badge--more">
+                            +<?php echo count($technologies) - 3; ?> more
+                        </span>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php
+            // Roles/Collaboration Type
+            if ($collaboration_type && is_array($collaboration_type)): ?>
+                <div class="project-card__roles">
+                    <?php 
+                    foreach (array_slice($collaboration_type, 0, 2) as $role): ?>
+                        <span class="role-badge">#<?php echo esc_html($role); ?></span>
+                    <?php endforeach; 
+                    
+                    if (count($collaboration_type) > 2): ?>
+                        <span class="role-badge role-badge--more">
+                            +<?php echo count($collaboration_type) - 2; ?> more
+                        </span>
+                    <?php endif; ?>
+                </div>
+            <?php elseif ($roles && !is_wp_error($roles) && is_array($roles)): ?>
+                <div class="project-card__roles">
+                    <?php 
+                    foreach (array_slice($roles, 0, 2) as $role): ?>
+                        <span class="role-badge">#<?php echo esc_html($role->name); ?></span>
+                    <?php endforeach; 
+                    
+                    if (count($roles) > 2): ?>
+                        <span class="role-badge role-badge--more">
+                            +<?php echo count($roles) - 2; ?> more
+                        </span>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+          </div>
         </article>
         <?php
       endwhile;

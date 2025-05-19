@@ -133,4 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial layout
   updateMasonryLayout();
+
+  // Debug project card data attributes
+  document.querySelectorAll('.project-card').forEach(card => {
+    console.group('Project Card Data');
+    console.log('Roles:', card.dataset.roles);
+    console.log('Industries:', card.dataset.industries);
+    console.log('Year:', card.dataset.year);
+    console.groupEnd();
+  });
 });

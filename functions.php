@@ -173,6 +173,14 @@ function portfolio_theme_scripts() {
 			true // Load in footer
 		);
 	}
+
+	// Add Font Awesome
+	wp_enqueue_style(
+		'font-awesome',
+		'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css',
+		array(),
+		'5.15.4'
+	);
 }
 add_action( 'wp_enqueue_scripts', 'portfolio_theme_scripts' );
 

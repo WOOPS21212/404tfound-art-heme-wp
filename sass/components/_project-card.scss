@@ -1,6 +1,15 @@
 .project-card {
   position: relative;
   width: 100%;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  overflow: hidden; // Ensure content doesn't overflow rounded corners
+  background: var(--color-background-dark);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
   
   &__link {
     display: block;
@@ -13,8 +22,7 @@
     width: 100%;
     overflow: hidden;
     background-color: var(--color-background-dark, #1a1a1a);
-    
-    // Let masonry JS handle sizing
+    border-radius: 0; // Remove top rounded corners
   }
 
   &__media {
@@ -41,6 +49,73 @@
     margin-top: 0.5rem;
     font-size: var(--font-size-base);
     font-weight: 500;
+  }
+
+  &__meta {
+    padding: 1rem;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    background: var(--color-background-dark);
+  }
+
+  &__technologies,
+  &__roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.5rem 0; // Add vertical padding to badge containers
+  }
+
+  .tech-badge,
+  .role-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem; // Increased padding for better spacing
+    border-radius: 1rem;
+    transition: all 0.2s ease;
+    margin: 0.25rem; // Add margin for better spacing between badges
+
+    // Style the hashtag symbol
+    &::before {
+      content: '#';
+      font-weight: 700;
+      opacity: 0.8;
+      margin-right: 0.25rem; // Increased spacing after hashtag
+    }
+
+    // Add plus icon between badges
+    &:not(:last-child)::after {
+      content: '\f067';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      font-size: 0.75rem;
+      opacity: 0.6;
+      margin-left: 0.75rem; // Increased spacing before plus icon
+      margin-right: 0.25rem; // Added spacing after plus icon
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+    }
+  }
+
+  // Style for the "more" badge
+  .tech-badge--more,
+  .role-badge--more {
+    background: rgba(255, 255, 255, 0.05);
+    font-style: italic;
+    padding: 0.5rem 1rem; // Match padding with other badges
+    
+    &::before {
+      content: '+';
+      font-weight: 400;
+      margin-right: 0.25rem; // Match spacing with other badges
+    }
   }
 
   // Debug outlines
