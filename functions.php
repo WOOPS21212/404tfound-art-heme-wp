@@ -162,6 +162,17 @@ function portfolio_theme_scripts() {
 		filemtime(get_template_directory() . '/js/main.js'), // Version based on file modification time
 		true // Load in footer
 	);
+	
+	// Enqueue video autoplay script only on homepage and CPT archive
+	if (is_front_page() || is_post_type_archive('projects')) {
+		wp_enqueue_script(
+			'portfolio-video-autoplay', 
+			get_template_directory_uri() . '/js/video-autoplay.js',
+			array('portfolio-main'), // Depends on main.js
+			filemtime(get_template_directory() . '/js/video-autoplay.js'), 
+			true // Load in footer
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'portfolio_theme_scripts' );
 
@@ -299,4 +310,3 @@ function acf_json_load_point($paths) {
     $paths[] = get_stylesheet_directory() . '/acf-json';
     return $paths;
 }
-

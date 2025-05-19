@@ -95,26 +95,45 @@ get_header();
       while ($projects_query->have_posts()): $projects_query->the_post();
         $post_id = get_the_ID();
         ?>
-        <article class="project-card" 
-          itemscope 
-          itemtype="http://schema.org/CreativeWork"
-          data-year="<?php echo esc_attr(get_field('year')); ?>"
-          data-role="<?php 
-            $roles = get_the_terms(get_the_ID(), 'role');
-            echo esc_attr($roles ? implode(',', wp_list_pluck($roles, 'slug')) : '');
-          ?>"
-          data-industry="<?php 
-            $industries = get_the_terms(get_the_ID(), 'industry');
-            echo esc_attr($industries ? implode(',', wp_list_pluck($industries, 'slug')) : '');
-          ?>"
-        >
+        <article class="project-card" itemscope itemtype="http://schema.org/CreativeWork">
           <a class="project-card__link" href="<?php the_permalink(); ?>" itemprop="url">
-            <div class="project-card__media">
-              <?php if (has_post_thumbnail()): ?>
-                <?php the_post_thumbnail('medium', ['class' => 'project-card__thumbnail', 'itemprop' => 'image']); ?>
-              <?php else: ?>
-                <!-- Fallback image or placeholder handled in future enhancement -->
-              <?php endif; ?>
+            <div class="project-card__media-wrapper">
+              <?php
+              $grid_media = get_field('grid_media');
+              if ($grid_media) {
+                $file_info = wp_check_filetype($grid_media);
+                $mime_type = $file_info['type'];
+                
+                if (strpos($mime_type, 'video/') === 0) {
+                  ?>
+                  <video 
+                    class="project-card__media" 
+                    autoplay 
+                    loop 
+                    muted 
+                    playsinline
+                  >
+                    <source src="<?php echo esc_url($grid_media); ?>" type="<?php echo esc_attr($mime_type); ?>">
+                  </video>
+                  <?php
+                } elseif ($mime_type === 'image/gif') {
+                  ?>
+                  <img 
+                    class="project-card__media" 
+                    src="<?php echo esc_url($grid_media); ?>" 
+                    alt="<?php echo esc_attr(get_the_title()); ?>" 
+                    loading="lazy"
+                  >
+                  <?php
+                }
+              } elseif (has_post_thumbnail()) {
+                the_post_thumbnail('large', array(
+                  'class' => 'project-card__media',
+                  'loading' => 'lazy',
+                  'itemprop' => 'image'
+                ));
+              }
+              ?>
             </div>
             <h2 class="project-card__title" itemprop="name"><?php the_title(); ?></h2>
             <!-- Future: video preview, filters, lazy loading, badges, etc. -->
@@ -131,4 +150,4 @@ get_header();
 </main>
 
 <?php
-get_footer(); 
+get_footer();

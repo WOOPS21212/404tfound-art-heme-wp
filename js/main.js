@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
       child => !child.classList.contains('is-hidden')
     );
     
+    if (items.length === 0) return; // Exit if no items are visible
+    
     // Get the computed grid gap
     const gridGap = parseInt(
       getComputedStyle(grid).getPropertyValue('grid-gap') || 
@@ -63,11 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const rowHeight = parseInt(getComputedStyle(items[0]).getPropertyValue('grid-auto-rows'));
     
     items.forEach(item => {
+      // Get the entire card height, including both media and content
+      const media = item.querySelector('.project-card__media');
       const content = item.querySelector('.project-card__content');
+      
+      let totalHeight = item.getBoundingClientRect().height;
+      
+      // Calculate appropriate rowspan based on the total height
       const rowSpan = Math.ceil(
-        (content.getBoundingClientRect().height + gridGap) / 
-        (rowHeight + gridGap)
+        (totalHeight + gridGap) / (rowHeight + gridGap)
       );
+      
       item.style.gridRowEnd = `span ${rowSpan}`;
     });
   }
@@ -77,6 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(updateMasonryLayout);
   });
   resizeObserver.observe(projectsGrid);
+  
+  // Listen for video loaded event from video-autoplay.js
+  document.addEventListener('videoLoaded', (event) => {
+    // Recalculate the masonry layout when a video has loaded
+    // This ensures the grid properly respects the natural aspect ratio of videos
+    requestAnimationFrame(updateMasonryLayout);
+  });
 
   // Event Listeners
   filterForm.addEventListener('change', event => {
@@ -118,4 +133,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial layout
   updateMasonryLayout();
-}); 
+});

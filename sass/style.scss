@@ -307,6 +307,89 @@ hr, .divider {
     transform: scale(0.9);
     pointer-events: none;
   }
+  
+  // Project card media container
+  &__media {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-black);
+    // Removed fixed aspect-ratio to preserve original media proportions
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Video element styles
+  &__video {
+    width: 100%;
+    height: auto; // Allow height to adjust naturally
+    max-height: 100%;
+    object-fit: contain; // Changed from cover to contain to preserve aspect ratio
+    display: block;
+  }
+  
+  // GIF element styles
+  &__gif {
+    width: 100%;
+    height: auto; // Allow height to adjust naturally
+    max-height: 100%;
+    object-fit: contain; // Changed from cover to contain to preserve aspect ratio
+    display: block;
+  }
+  
+  // Standard image element styles
+  &__image,
+  &__thumbnail {
+    width: 100%;
+    height: auto; // Allow height to adjust naturally
+    max-height: 100%;
+    object-fit: contain; // Changed from cover to contain to preserve aspect ratio
+    display: block;
+  }
+  
+  // Placeholder when no media is available
+  &__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-medium-grey);
+    color: var(--color-light-grey);
+    font-family: 'Doto', sans-serif;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  // Play button for videos when autoplay is blocked
+  &__play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    
+    &:hover, &:focus {
+      background-color: var(--color-accent-orange);
+    }
+    
+    .play-icon {
+      color: var(--color-white);
+      font-size: 1.5rem;
+      margin-left: 5px; // Adjust for the triangle shape
+    }
+  }
 }
 
 // Filter panel styles
