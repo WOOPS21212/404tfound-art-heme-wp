@@ -320,11 +320,21 @@ function acf_json_load_point($paths) {
 }
 
 function enqueue_masonry_script() {
+  // Enqueue Macy.js from CDN
+  wp_enqueue_script(
+    'macy-js',
+    'https://cdn.jsdelivr.net/npm/macy@2.5.1/dist/macy.min.js',
+    array(),
+    '2.5.1',
+    true
+  );
+  
+  // Then enqueue our implementation
   wp_enqueue_script(
     'masonry-layout',
     get_template_directory_uri() . '/js/masonry.js',
-    array(),
-    '1.0.0',
+    array('macy-js'), // Make it dependent on Macy.js
+    filemtime(get_template_directory() . '/js/masonry.js'),
     true
   );
 }

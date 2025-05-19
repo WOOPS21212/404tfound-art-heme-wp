@@ -266,8 +266,13 @@ hr, .divider {
   background: var(--color-accent-orange);
 }
 
-/* Main projects grid - core styling */
-/* Note: Additional grid styles are in components/_project-card.scss */
+/* Projects Grid - Macy.js Layout */
+.projects-grid {
+  position: relative; /* Required for Macy.js positioning */
+  width: 100%;
+  padding: 2rem;
+  min-height: 400px;
+}
 
 /* Project card detailed styling moved to components/_project-card.scss */
 /* This prevents conflicts and ensures consistent styling */

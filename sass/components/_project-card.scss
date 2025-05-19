@@ -5,6 +5,7 @@
   overflow: hidden; // Ensure content doesn't overflow rounded corners
   background: var(--color-dark-grey);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 32px; // Add space between cards for Macy.js layout
   
   &:hover {
     transform: translateY(-4px);
@@ -92,17 +93,6 @@
       color: var(--color-accent-orange); // Add accent color to hashtag
     }
 
-    // Add plus icon between badges - removed to give each badge its own space
-    // &:not(:last-child)::after {
-    //   content: '\f067';
-    //   font-family: 'Font Awesome 5 Free';
-    //   font-weight: 900;
-    //   font-size: 0.75rem;
-    //   opacity: 0.6;
-    //   margin-left: 0.75rem;
-    //   margin-right: 0.25rem;
-    // }
-
     &:hover {
       background: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
@@ -129,46 +119,24 @@
       background: rgba(255, 255, 255, 0.1);
     }
   }
-
-  // Debug outlines
-  &::after {
-    content: attr(style); // Show computed grid-row-end
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: rgba(0,0,0,0.8);
-    color: lime;
-    font-size: 10px;
-    padding: 2px 4px;
-    z-index: 10;
-    pointer-events: none;
-  }
 }
 
-// Grid container definition moved to style.scss to avoid duplication
-// This was previously:
-// .projects-grid {
-//   display: grid;
-//   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-//   gap: 2rem;
-//   padding: 2rem;
-//   min-height: 400px;
-// }
-
-// Loading state
+// Loading state for Macy.js layout
 .projects-grid:empty::after {
   content: "Loading projects...";
-  grid-column: 1 / -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
   padding: 2rem;
   color: var(--color-light-grey);
 }
 
-// Responsive adjustments
-@media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
+// Add Macy.js specific styles
+[data-macy-complete="1"] .project-card {
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 // Dark mode adjustments
@@ -187,7 +155,7 @@
       outline: 2px solid rgba(255,0,0,0.5);
       
       &::after {
-        content: attr(style);
+        content: attr(data-macy-complete);
         position: absolute;
         top: 0;
         right: 0;
