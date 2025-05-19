@@ -310,3 +310,14 @@ function acf_json_load_point($paths) {
     $paths[] = get_stylesheet_directory() . '/acf-json';
     return $paths;
 }
+
+function enqueue_masonry_script() {
+  wp_enqueue_script(
+    'masonry-layout',
+    get_template_directory_uri() . '/js/masonry.js',
+    array(),
+    '1.0.0',
+    true
+  );
+}
+add_action('wp_enqueue_scripts', 'enqueue_masonry_script');

@@ -107,11 +107,16 @@ get_header();
                 if (strpos($mime_type, 'video/') === 0) {
                   ?>
                   <video 
-                    class="project-card__media" 
+                    class="project-card__media project-card__media--video" 
                     autoplay 
                     loop 
                     muted 
                     playsinline
+                    data-masonry-item
+                    readystate="0"
+                    onloadedmetadata="this.setAttribute('readystate', '2')"
+                    oncanplay="this.setAttribute('readystate', '3')"
+                    oncanplaythrough="this.setAttribute('readystate', '4')"
                   >
                     <source src="<?php echo esc_url($grid_media); ?>" type="<?php echo esc_attr($mime_type); ?>">
                   </video>
@@ -119,18 +124,20 @@ get_header();
                 } elseif ($mime_type === 'image/gif') {
                   ?>
                   <img 
-                    class="project-card__media" 
+                    class="project-card__media project-card__media--gif" 
                     src="<?php echo esc_url($grid_media); ?>" 
                     alt="<?php echo esc_attr(get_the_title()); ?>" 
                     loading="lazy"
+                    data-masonry-item
                   >
                   <?php
                 }
               } elseif (has_post_thumbnail()) {
                 the_post_thumbnail('large', array(
-                  'class' => 'project-card__media',
+                  'class' => 'project-card__media project-card__media--image',
                   'loading' => 'lazy',
-                  'itemprop' => 'image'
+                  'itemprop' => 'image',
+                  'data-masonry-item' => ''
                 ));
               }
               ?>
@@ -148,6 +155,13 @@ get_header();
     <?php endif; ?>
   </section>
 </main>
+
+<button 
+  onclick="document.querySelector('.projects-grid').classList.toggle('debug-layout')"
+  style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; padding: 10px;"
+>
+  Toggle Debug Layout
+</button>
 
 <?php
 get_footer();

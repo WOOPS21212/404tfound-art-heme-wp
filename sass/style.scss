@@ -308,44 +308,39 @@ hr, .divider {
     pointer-events: none;
   }
   
-  // Project card media container
-  &__media {
+  // Project card media wrapper
+  &__media-wrapper {
     position: relative;
     overflow: hidden;
     background-color: var(--color-black);
-    // Removed fixed aspect-ratio to preserve original media proportions
     border-radius: var(--border-radius) var(--border-radius) 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
   }
   
-  // Video element styles
-  &__video {
+  // Generic media styles (applies to all media types)
+  &__media {
     width: 100%;
-    height: auto; // Allow height to adjust naturally
-    max-height: 100%;
-    object-fit: contain; // Changed from cover to contain to preserve aspect ratio
+    height: auto !important; // Force natural height
+    min-height: 200px; // Set a minimum height to prevent tiny videos
     display: block;
-  }
-  
-  // GIF element styles
-  &__gif {
-    width: 100%;
-    height: auto; // Allow height to adjust naturally
-    max-height: 100%;
-    object-fit: contain; // Changed from cover to contain to preserve aspect ratio
-    display: block;
-  }
-  
-  // Standard image element styles
-  &__image,
-  &__thumbnail {
-    width: 100%;
-    height: auto; // Allow height to adjust naturally
-    max-height: 100%;
-    object-fit: contain; // Changed from cover to contain to preserve aspect ratio
-    display: block;
+    
+    // Video-specific styles
+    &--video {
+      object-fit: contain; // Preserve aspect ratio
+    }
+    
+    // GIF-specific styles
+    &--gif {
+      object-fit: contain; // Preserve aspect ratio
+    }
+    
+    // Image-specific styles
+    &--image {
+      object-fit: contain; // Preserve aspect ratio
+    }
   }
   
   // Placeholder when no media is available

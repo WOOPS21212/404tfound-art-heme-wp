@@ -5,8 +5,8 @@
  * with intersection observer for performance and fallbacks.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Get all grid videos
-  const gridVideos = document.querySelectorAll('.project-card__video');
+  // Get all grid videos using the correct class from front-page.php
+  const gridVideos = document.querySelectorAll('.project-card__media--video');
   
   // If we don't have any videos, exit early
   if (gridVideos.length === 0) return;
@@ -104,9 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
     video.style.display = 'none';
     
     // Find the parent media container
-    const mediaContainer = video.closest('.project-card__media');
+    const mediaContainer = video.closest('.project-card__media-wrapper');
     
-    // Look for a fallback image
+    // Try to find a fallback image
     const fallbackImg = video.querySelector('img');
     
     if (fallbackImg) {
@@ -124,14 +124,21 @@ document.addEventListener('DOMContentLoaded', () => {
       placeholder.appendChild(placeholderText);
       mediaContainer.appendChild(placeholder);
     }
+    
+    // Signal to masonry.js that layout needs to be recalculated
+    window.dispatchEvent(new Event('resize'));
   }
   
   /**
    * Add a play button for videos that can't autoplay
    */
   function addPlayButton(video) {
+    // Find the media wrapper
+    const mediaWrapper = video.closest('.project-card__media-wrapper');
+    if (!mediaWrapper) return;
+    
     // Check if a play button already exists
-    if (video.parentNode.querySelector('.project-card__play-button')) return;
+    if (mediaWrapper.querySelector('.project-card__play-button')) return;
     
     // Create play button
     const playButton = document.createElement('button');
@@ -141,8 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add play icon (simple CSS triangle)
     playButton.innerHTML = '<span class="play-icon">▶</span>';
     
-    // Insert after the video
-    video.parentNode.insertBefore(playButton, video.nextSibling);
+    // Append to the media wrapper to position it properly
+    mediaWrapper.appendChild(playButton);
     
     // Add click event to play the video
     playButton.addEventListener('click', (event) => {
