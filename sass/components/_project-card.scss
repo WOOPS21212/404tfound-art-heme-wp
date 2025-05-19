@@ -3,7 +3,7 @@
   width: 100%;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   overflow: hidden; // Ensure content doesn't overflow rounded corners
-  background: var(--color-background-dark);
+  background: var(--color-dark-grey);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   
   &:hover {
@@ -21,7 +21,7 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    background-color: var(--color-background-dark, #1a1a1a);
+    background-color: var(--color-dark-grey);
     border-radius: 0; // Remove top rounded corners
   }
 
@@ -47,14 +47,14 @@
 
   &__title {
     margin-top: 0.5rem;
-    font-size: var(--font-size-base);
+    font-size: 1rem;
     font-weight: 500;
   }
 
   &__meta {
     padding: 1rem;
     border-radius: 0 0 var(--border-radius) var(--border-radius);
-    background: var(--color-background-dark);
+    background: var(--color-dark-grey);
   }
 
   &__technologies,
@@ -72,7 +72,7 @@
     display: inline-flex;
     align-items: center;
     font-size: 0.875rem;
-    color: var(--color-text-light);
+    color: var(--color-light-grey);
     background: rgba(255, 255, 255, 0.1);
     padding: 0.5rem 1rem; // Increased padding for better spacing
     border-radius: 1rem;
@@ -133,15 +133,15 @@
   }
 }
 
-// Grid container using CSS Grid for masonry
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  
-  min-height: 400px;
-}
+// Grid container definition moved to style.scss to avoid duplication
+// This was previously:
+// .projects-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+//   gap: 2rem;
+//   padding: 2rem;
+//   min-height: 400px;
+// }
 
 // Loading state
 .projects-grid:empty::after {
@@ -149,7 +149,7 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 2rem;
-  color: var(--color-text-muted);
+  color: var(--color-light-grey);
 }
 
 // Responsive adjustments
@@ -163,7 +163,7 @@
 @media (prefers-color-scheme: dark) {
   .project-card {
     &__media-wrapper {
-      background-color: var(--color-background-darker, #000);
+      background-color: var(--color-black);
     }
   }
 }
@@ -195,4 +195,4 @@
       }
     }
   }
-} 
+}
